@@ -37,7 +37,9 @@ PREFFEREDCHAIN= "ISRG Root X1"        # don't touch
 LETEMP=/opt/zimbra/ssl/le-new         # cert directory with zimbra user read permissions
 
 # generate certificats
-certbot certonly --standalone --force-renewal --preferred-chain "$PREFERREDCHAIN" -d $DOMAINNAME
+#certbot certonly --standalone --force-renewal --preferred-chain "$PREFERREDCHAIN" -d $DOMAINNAME
+
+certbot certonly --preferred-chain="ISRG Root X1" --manual -d *.dominio.cu -d dominio.cu --agree-tos --no-bootstrap --manual-public-ip-logging-ok --preferred-challenges dns-01 --server https://acme-v02.api.letsencrypt.org/directory
 
 # create fullchain (copy first, then append)
 cp /etc/letsencrypt/live/$DOMAINNAME/chain.pem /etc/letsencrypt/live/$DOMAINNAME/fullchain.pem 
